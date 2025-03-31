@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diet_Planner.com</title>
+  <link rel="stylesheet" href="dietPlanner.css">
+</head>
+
+<body>
+  <header>
+    <h1>FlexyFit - Diet Planner</h1>
+    <p>Choose your regional cuisine for a weekly vegetarian meal plan</p>
+  </header>
+
+  <div class="container">
+    <div class="select-container">
+      <label for="region">Select Region:</label>
+      <select id="region">
+        <option value="" disabled selected>Choose Cuisine</option>
+        <option value="south_indian">South Indian</option>
+        <option value="north_indian">North Indian</option>
+        <option value="rajasthani">Rajasthani</option>
+        <option value="gujarati">Gujarati</option>
+        <option value="maharashtrian">Maharashtrian</option>
+      </select>
+      <button id="generatePlan">Generate Plan</button>
+      <button><a href="/src/WD-CP/FitnessTracker.html" style="text-decoration: none;
+         color: white;
+         padding: 10px 5px;">Go home</a></button>
+    </div>
+
+    <div id="mealPlan" class="meal-plan"></div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 FlexyFit - Diet Planner. All Rights Reserved.</p>
+  </footer>
+
+  <script src="dietPlanner.js"></script>
+</body>
+
+</html>

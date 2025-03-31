@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background: #ececec;
+      color: #333;
+    }
+
+    .contact-section {
+      padding: 60px 20px;
+      background-color: #1abc9c;
+      color: #000000;
+      text-align: center;
+    }
+
+    .contact-section h2 {
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+    }
+
+    .contact-section p {
+      font-size: 1.2rem;
+      margin-bottom: 40px;
+    }
+
+    .contact-form-container {
+      max-width: 700px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-form-container input,
+    .contact-form-container textarea,
+    .contact-form-container button {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    .contact-form-container textarea:focus {
+      border-color: #1abc9c;
+      outline: none;
+      box-shadow: 0 0 6px rgba(26, 188, 156, 0.3);
+    }
+
+    .contact-form-container button {
+      background: #1abc9c;
+      color: white;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .contact-form-container button:hover {
+      background: #0c7d46;
+    }
+
+    @media (max-width: 600px) {
+      .contact-section h2 {
+        font-size: 2.2rem;
+      }
+
+      .contact-section p {
+        font-size: 1rem;
+      }
+
+      .contact-form-container {
+        padding: 20px;
+      }
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #333;
+      color: #fff;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+
+<body>
+  <section class="contact-section">
+    <h2 style="color: white;">Get in Touch</h2>
+    <p style="color: white;">We’d love to hear from you! Send us a message below.</p>
+    <div class="contact-form-container">
+      <form>
+        <p style="
+          font-size: 17px;
+          margin: 0;
+          margin-bottom: 5px;
+          text-align: left;
+          margin-left: 10px;
+          color: rgb(36, 36, 36);;
+          ">Your Name</p>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+        <p style="
+          font-size: 17px;
+          margin: 0;
+          margin-bottom: 5px;
+          text-align: left;
+          margin-left: 10px;
+          color: rgb(36, 36, 36);;
+          ">Your Email</p>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+        <p style="
+          font-size: 17px;
+          margin: 0;
+          margin-bottom: 5px;
+          text-align: left;
+          margin-left: 10px;
+          color: rgb(36, 36, 36);
+          ">Your Message for Us</p>
+        <textarea id=" message" name="message" rows="5" placeholder="Type your message here" required></textarea>
+
+        <button type="submit" onclick="DisplayGreet()">Send Message</button>
+        <button onclick="redirect();">Go to Home</button>
+      </form>
+    </div>
+  </section>
+  <footer>
+    <p>&copy; 2025 Fitness Tracker. Designed for your health and fitness goals.</p>
+  </footer>
+
+  <script>
+    function DisplayGreet() {
+      alert('You will be notified soon!');
+    }
+    function redirect() {
+      window.location.href = "FitnessTracker.html";
+    }
+  </script>
+</body>
+
+</html>

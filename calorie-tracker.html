@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calorie Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: white;
+            color: #333;
+        }
+
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        header {
+            background: linear-gradient(to right, #00b894, #00cec9);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+        }
+
+
+        section {
+            background: white;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        section h2 {
+            margin-bottom: 10px;
+            color: #00b894;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background: linear-gradient(to right, #00b894, #00cec9);
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: linear-gradient(to right, #00cec9, #00b894);
+        }
+
+
+        .food-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .food-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f1f1f1;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-left: 5px solid #00b894;
+        }
+
+        .food-list input[type="checkbox"] {
+            transform: scale(1.2);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Calorie Tracker</h1>
+        </header>
+
+        <main>
+            <section>
+                <h2>User Information</h2>
+                <div class="input-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" placeholder="Enter your name">
+                </div>
+                <div class="input-group">
+                    <label for="gender">Gender:</label>
+                    <select id="gender">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" placeholder="Enter your age">
+                </div>
+                <div class="input-group">
+                    <label for="height">Height (cm):</label>
+                    <input type="number" id="height" placeholder="Enter your height">
+                </div>
+                <div class="input-group">
+                    <label for="weight">Weight (kg):</label>
+                    <input type="number" id="weight" placeholder="Enter your weight">
+                </div>
+                <button onclick="updateCalorieGoal()">Check Calorie Goal</button>
+                <p>Your calorie goal is: <span id="calorieGoalDisplay">0</span> calories/day</p>
+            </section>
+
+            <section class="food-list">
+                <h2>Food List</h2>
+                <ul id="foodList"></ul>
+                <button onclick="downloadFoodList()">Download Food List</button>
+            </section>
+
+            <section>
+                <h2>Add Custom Food</h2>
+                <div class="input-group">
+                    <label for="foodItem">Food Name:</label>
+                    <input type="text" id="foodItem" placeholder="Enter food name">
+                </div>
+                <div class="input-group">
+                    <label for="calories">Calories:</label>
+                    <input type="number" id="calories" placeholder="Enter calorie value">
+                </div>
+                <button onclick="addCustomFood()">Add Food</button>
+            </section>
+
+            <section>
+                <h2>Summary</h2>
+                <p>Total Consumed Calories: <span id="totalCalories">0</span> cal</p>
+            </section>
+        </main>
+    </div>
+    <footer>
+        <p>&copy; 2025 Calorie-Tracker. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let totalCalories = 0;
+        let consumedCalories = 0;
+
+        function calculateCalorieGoal(weight, height, age, gender) {
+            if (gender === "male") {
+                return Math.round((10 * weight) + (6.25 * height) - (5 * age) + 5);
+            } else {
+                return Math.round((10 * weight) + (6.25 * height) - (5 * age) - 161);
+            }
+        }
+
+        function updateCalorieGoal() {
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value);
+            const age = parseInt(document.getElementById('age').value);
+            const gender = document.getElementById('gender').value;
+
+            if (!isNaN(weight) && !isNaN(height) && !isNaN(age) && gender) {
+                const calorieGoal = calculateCalorieGoal(weight, height, age, gender);
+                document.getElementById('calorieGoalDisplay').textContent = calorieGoal;
+                generateFoodList(calorieGoal);
+            }
+        }
+
+        function generateFoodList(calorieGoal) {
+            const foodItems = [
+                { name: "Apple", calories: 95 },
+                { name: "Banana", calories: 105 },
+                { name: "Chicken Breast (100g)", calories: 165 },
+                { name: "Rice (1 cup)", calories: 200 },
+                { name: "Broccoli (1 cup)", calories: 55 },
+                { name: "Almond(10)", calories: 70 },
+                { name: "Dates(3)", calories: 80 },
+                { name: "Boiled eggs(4)", calories: 228 },
+                { name: "Dal(1 Bowl)", calories: 108 },
+            ];
+
+            const foodList = document.getElementById('foodList');
+            foodList.innerHTML = "";
+            let accumulatedCalories = 0;
+
+            for (let i = 0; i < foodItems.length; i++) {
+                const item = foodItems[i];
+                const quantity = Math.ceil((calorieGoal - accumulatedCalories) / item.calories);
+                const actualCalories = item.calories * Math.min(quantity, 1);
+
+                if (accumulatedCalories + actualCalories <= calorieGoal) {
+                    accumulatedCalories += actualCalories;
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `
+                        <span>${item.name} (x${Math.min(quantity, 1)})</span>
+                        <span>${actualCalories} cal</span>
+                        <input type="checkbox" onchange="updateConsumedCalories(${actualCalories}, this)">
+                        <button onclick="removeFood(this, ${actualCalories})">Remove</button>
+                    `;
+                    foodList.appendChild(listItem);
+                }
+
+                if (accumulatedCalories >= calorieGoal) break;
+            }
+        }
+
+        function updateConsumedCalories(calories, checkbox) {
+            if (checkbox.checked) {
+                consumedCalories += calories;
+            } else {
+                consumedCalories -= calories;
+            }
+            document.getElementById('totalCalories').textContent = consumedCalories;
+        }
+
+        function addCustomFood() {
+            const foodItem = document.getElementById('foodItem').value.trim();
+            const calories = parseInt(document.getElementById('calories').value);
+
+            if (foodItem && !isNaN(calories)) {
+                const foodList = document.getElementById('foodList');
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `
+                    <span>${foodItem}</span>
+                    <span>${calories} cal</span>
+                    <input type="checkbox" onchange="updateConsumedCalories(${calories}, this)">
+                    <button onclick="removeFood(this, ${calories})">Remove</button>
+                `;
+                foodList.appendChild(listItem);
+
+                document.getElementById('foodItem').value = '';
+                document.getElementById('calories').value = '';
+            } else {
+                alert('Please fill in all fields correctly.');
+            }
+        }
+
+        function removeFood(button, calories) {
+            const listItem = button.parentElement;
+            const checkbox = listItem.querySelector('input[type="checkbox"]');
+            if (checkbox.checked) {
+                consumedCalories -= calories;
+                document.getElementById('totalCalories').textContent = consumedCalories;
+            }
+            listItem.remove();
+        }
+
+        function downloadFoodList() {
+            const foodList = document.getElementById('foodList');
+            let foodText = "Food Item,Calories\n";
+
+            foodList.querySelectorAll('li').forEach(item => {
+                const name = item.querySelector('span:nth-child(1)').textContent;
+                const calories = item.querySelector('span:nth-child(2)').textContent;
+                foodText += `${name},${calories}\n`;
+            });
+
+            const blob = new Blob([foodText], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'FoodList.csv';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+
+</html>

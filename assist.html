@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login-Page</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(purple, rgb(54, 3, 93));
+    }
+
+    .login-container {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .login-container h1 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .input-field {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .input-field input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .input-field input:hover {
+      border-color: #28002d;
+    }
+
+    .login-btn {
+      display: inline-block;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      background: #008c10;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: not-allowed;
+      opacity: 0.6;
+      transition: background 0.3s, opacity 0.3s;
+    }
+
+    .login-btn:enabled {
+      cursor: pointer;
+      opacity: 1;
+      background: #008c10;
+    }
+
+    .login-btn:enabled:hover {
+      background: #004808;
+    }
+
+    .home {
+      text-decoration: none;
+      color: green;
+    }
+
+    .home:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login-container">
+    <h1>Sign Up</h1>
+    <form id="loginForm">
+      <div class="input-field">
+        <input type="email" id="email" placeholder="Enter your email" required>
+      </div>
+      <div class="input-field">
+        <input type="password" id="password" placeholder="Enter your password" required>
+      </div>
+      <button type="submit" class="login-btn" id="submitBtn" disabled onclick="clickme()">Login</button>
+      <br><br>
+      <a class="home" href="FitnessTracker.html">Go home</a>
+    </form>
+  </div>
+
+  <script>
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const submitBtn = document.getElementById('submitBtn');
+
+    function checkFormValidity() {
+
+      if (emailInput.value.trim() !== '' && passwordInput.value.trim() !== '') {
+        submitBtn.disabled = false;
+      } else {
+        submitBtn.disabled = true;
+      }
+    }
+
+    emailInput.addEventListener('input', checkFormValidity);
+    passwordInput.addEventListener('input', checkFormValidity);
+
+    function clickme() {
+      alert("Got your credential (dont worry we keep it safe)");
+    }
+  </script>
+</body>
+
+</html>

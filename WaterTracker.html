@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Water-Tracker&Reminder</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f8ff;
+      margin: 0;
+      padding: 0;
+      background-image: url(back3.jpg);
+    }
+
+    h1 {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 20px;
+      color: rgba(0, 66, 152, 0.968);
+      margin-bottom: 50px;
+    }
+
+    .tracker-container {
+      text-align: center;
+      background: #ffffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 600px;
+      box-shadow: 2px 4px 6px gray;
+      margin-bottom: 50px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 20px;
+      background: #e0e0e0;
+      border-radius: 15px;
+      overflow: hidden;
+      margin: 20px 0;
+    }
+
+    .progress-bar-inner {
+      height: 100%;
+      width: 0%;
+      background: #00bfff;
+      transition: width 0.3s ease;
+    }
+
+    .controls {
+      margin-top: 20px;
+    }
+
+    .controls button {
+      background: #0077cc;
+      color: #ffffff;
+      border: none;
+      font-family: cursive;
+      padding: 20px 50px;
+      border-radius: 50%;
+      height: 150px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 10px;
+      transition: background 0.3s ease;
+
+    }
+
+    .controls button:hover {
+      transform: scale(1.05);
+      background: #32393d;
+    }
+
+    p {
+      color: #333333;
+    }
+
+    .UserData {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 100px;
+      font-size: 18px;
+      color: #084f67;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      display: grid;
+      margin-top: 20px;
+      width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 10px;
+      background-color: #ffffff;
+      box-shadow: 2px 4px 6px gray;
+    }
+
+    .UserData input {
+      padding: 10px 50px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: 1px solid #084f67;
+    }
+
+    .UserData input:hover {
+      background-color: rgba(83, 82, 82, 0.284);
+    }
+
+    .UserData button {
+      padding: 10px 25px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      border: none;
+      background: #0077cc;
+      color: white;
+      font-size: 20px;
+      transition: background 0.3s ease-in-out;
+      transition-duration: 0.5s;
+    }
+
+    .UserData button:hover {
+      transform: scale(1.03);
+      transition-duration: 0.5s;
+      background-color: #32393d;
+    }
+
+    form h2 {
+      font-size: 20px;
+    }
+
+    .entry {
+      display: inline-block;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      font-size: 35px;
+      color: rgb(10, 98, 69);
+      text-align: center;
+    }
+
+    .entry img {
+      margin-left: 10px;
+      width: 30px;
+    }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-btn {
+      background-color: transparent;
+      color: white;
+      padding: 14px 20px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+
+    .dropdown-content a {
+      text-decoration: none;
+      color: black;
+      padding: 10px;
+      text-decoration: none;
+      display: block;
+      font-size: 18px;
+      transition: background-color 0.3s ease;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #000000;
+      text-decoration: none;
+      color: white;
+      border-radius: 8px;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    a {
+      font-size: 18px;
+      text-decoration: none;
+      color: #4CAF50;
+      margin: 20px;
+      cursor: pointer;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .hidden-block {
+      display: none;
+      background-color: #f9f9f9;
+      padding: 20px;
+      margin: 20px;
+      max-width: 600px;
+      box-shadow: 2px 4px 6px gray;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+
+    .Congo-btn {
+      margin-top: 30px;
+      background-color: #0077cc;
+      ;
+      border: 1px solid gray;
+      padding: 7px 40px;
+      border-radius: 5px;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      transition: background 0.3s ease-in-out;
+    }
+
+    .Congo-btn:hover {
+      background-color: #32393d;
+      border: 1px solid rgb(23, 9, 224);
+    }
+
+    #greetingMessage {
+      margin-top: 30px;
+      font-size: 1.5em;
+      border: 1px solid black;
+      border-radius: 5px;
+      padding: 50px;
+      background-color: #0a0a0aab;
+      color: white;
+      width: 50%;
+      z-index: 1;
+      display: none;
+      margin-bottom: 30px;
+    }
+  </style>
+
+</head>
+
+<body>
+  <center>
+    <div class="entry">
+      <p class="entry">Welcome Champ!
+      <div class="dropdown">
+        <button class="dropdown-btn"><img src="https://cdn-icons-png.flaticon.com/128/16069/16069636.png"
+            alt=""></button>
+        <div class="dropdown-content">
+          <a href="#" id="showBlockLink">Personal Info</a>
+          <a href="FitnessTracker.html">Home</a>
+        </div>
+      </div>
+      <p style="font-size: 25px;
+      padding: 0;
+      margin: 0;">Keep Yourself hydrated with the use of our water reminder.
+        <br>We make you achieve it &#128522
+      </p>
+      </p>
+    </div>
+  </center>
+
+  <center>
+    <div id="hiddenBlock" class="hidden-block">
+
+    </div>
+  </center>
+
+  <div class="UserData" id="UserData">
+    <h2>User Data :</h2>
+    <label for="nickname">Your Nickname</label>
+    <input id="TakeNickname" type="text" placeholder="We will call you this">
+    <label for="age">Your Age</label>
+    <input id="TakeAge" type="age" placeholder="Enter age">
+    <label for="text">Gender</label>
+    <input id="TakeGender" type="text" placeholder="Enter gender">
+    <label for="weight">Your weight</label>
+    <input id="TakeWeight" type="weight" style="margin-bottom: 30px;" placeholder="Enter your weight">
+    <button type="submit" onclick="displayText(),Hide()">Obtain Goal</button>
+  </div>
+
+  <center>
+    <div id="greetingMessage">🎉 Congratulations! You've reached your daily water goal! <br> Keep hydrating yourself! 💧
+      <br>
+      I knew you will make it as usually you do!
+    </div>
+  </center>
+
+  <center>
+    <div class="tracker-container">
+      <h1 id="Nickname" style="font-size: 30px;"></h1>
+      <h1>Based on Your Data.
+        <br>
+        We have prepared a goal for you.
+      </h1>
+      <p id="GotGoal"></p>
+
+      <div class="progress-bar">
+        <div class="progress-bar-inner" id="progress-bar"></div>
+      </div>
+
+      <p id="status-text" class="GoalBar"></p>
+
+      <div class="controls">
+        <button onclick="addWater(100)"><img src="https://cdn-icons-png.flaticon.com/128/4401/4401108.png" alt=""
+            width="50px"><br>+100 ml</button>
+        <button onclick="addWater(200)"><img src="https://cdn-icons-png.flaticon.com/128/1223/1223076.png" alt=""
+            width="50px"><br>+200 ml</button>
+        <br>
+        <button onclick="addWater(250)"><img src="https://cdn-icons-png.flaticon.com/128/14000/14000402.png" alt=""
+            width="50px"><br>+250 ml</button>
+        <button onclick="addWater(300)"><img src="https://cdn-icons-png.flaticon.com/128/144/144242.png" alt=""
+            width="50px"><br>+300 ml</button>
+      </div>
+    </div>
+  </center>
+
+  <script>
+    document.querySelector('.dropdown-btn').addEventListener('click', function (event) {
+      const dropdownContent = document.querySelector('.dropdown-content');
+      dropdownContent.style.display = (dropdownContent.style.display === 'block' ? 'none' : 'block');
+      event.stopPropagation();
+    });
+    document.getElementById('showBlockLink').addEventListener('click', function (event) {
+      event.preventDefault();
+      var block = document.getElementById('hiddenBlock');
+      block.style.display = (block.style.display === 'none' || block.style.display === '') ? 'block' : 'none';
+      const UserInput = document.getElementById("TakeNickname").value;
+      const age = document.getElementById("TakeAge").value;
+      const weight = document.getElementById("TakeWeight").value;
+      const gender = document.getElementById("TakeGender").value;
+      const displayArea = document.getElementById("hiddenBlock");
+      if (age && weight && gender) {
+        displayArea.innerHTML = `
+        <div style="font-family: cursive; font-size: 18px;">
+        <h1>Hello ${UserInput}!</h1>
+        <p>Your Personal details are : </p> 
+          <p><strong>Age:</strong> ${age} years</p>
+          <p><strong>Gender:</strong> ${gender}</p>
+          <p><strong>Weight:</strong> ${weight} kg</p>
+        </div>
+        `;
+      } else {
+        displayArea.innerHTML = `<p style="color: red; font-weight: bold; text-align: center; font-size:18px;font-family: cursive;">Please fill out all fields!</p>`;
+      }
+    });
+
+    let dailyGoal = 0;
+    let currentIntake = 0;
+    const progressBar = document.getElementById('progress-bar');
+    const statusText = document.getElementById('status-text');
+    const greetingMessage = document.getElementById("greetingMessage");
+    let progress = 0;
+    function addWater(amount) {
+      const age = document.getElementById("TakeAge").value;
+      if (3 < age && age <= 10) {
+        dailyGoal = 1600;
+      }
+      if (11 < age & age <= 15) {
+        dailyGoal = 2000;
+      }
+      if (16 < age && age <= 70) {
+        dailyGoal = 3200;
+      }
+      if (71 < age && age <= 100) {
+        dailyGoal = 2600;
+      }
+
+      currentIntake += amount;
+      if (currentIntake > dailyGoal)
+        currentIntake = dailyGoal;
+      updateTracker();
+    }
+
+    function updateTracker() {
+      const percentage = (currentIntake / dailyGoal) * 100;
+      progressBar.style.width = percentage + '%';
+      statusText.textContent = `${currentIntake} / ${dailyGoal} ml consumed `;
+      if (progressBar.style.width === '100%') {
+        greetingMessage.style.display = "block";
+      }
+    }
+
+    function startReminder() {
+      setInterval(() => {
+        alert('Time to drink water!');
+      }, 300000); // 5 min in milliseconds.
+    }
+
+    startReminder();
+
+    function displayText() {
+      const UserInput = document.getElementById("TakeNickname").value;
+      const Display = document.getElementById("Nickname");
+      Display.textContent = `Hey ${UserInput}!`;
+
+
+      const age = document.getElementById("TakeAge").value;
+      if (5 < age && age <= 10) {
+        const Display = document.getElementById("GotGoal");
+        Display.textContent = `Goal : 1600 ml (1.6L)`;
+      }
+      if (11 < age && age <= 15) {
+        const Display = document.getElementById("GotGoal");
+        Display.textContent = `Goal : 2000 ml (2.0L)`;
+      }
+      if (16 < age && age <= 70) {
+        const Display = document.getElementById("GotGoal");
+        Display.textContent = `Goal : 3200 ml (3.2L)`;
+      }
+      if (71 < age && age <= 100) {
+        const Display = document.getElementById("GotGoal");
+        Display.textContent = `Goal : 2600 ml (2.6L)`;
+      }
+
+      document.addEventListener("click", function Hide() {
+        const HideWhenClicked = document.getElementById("UserData");
+        HideWhenClicked.style.display = 'none';
+      });
+    }
+
+  </script>
+</body>
+
+</html>
